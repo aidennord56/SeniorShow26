@@ -1,0 +1,210 @@
+:root {
+
+    /*  
+    OKLCH Guide: oklch(Lightness Chroma Hue) 
+    L = 0% to 100%   (Perceived brightness) 
+    C = 0 to 0.4     (Intensity/vibrancy)
+    H = 0 to 360     (Color wheel degree)) 
+    */
+
+    --green     :   oklch(81.82% 0.165 112.55);
+    --pink      :   oklch(61.85% 0.231 3.23);
+    --orange    :   oklch(67.75% 0.198 44.8);
+    --black     :   oklch(20.35% 0.003 333.32);
+    --white     :   oklch(100% 0 0);
+
+}
+
+/*  
+    FOR SIDEWAYS TEXT, USE THIS:
+        text-orientation: sideways;
+
+    __WITH__ ONE OF THESE...
+
+    BASELINE LEFT SIDE:
+        writing-mode: vertical-lr;
+
+    BASELINE RIGHT SIDE:    
+        writing-mode: vertical-rl; 
+        transform: rotate(180deg); 
+*/
+
+
+/* PAGE GLOBALS */
+
+
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	color: var(--black);
+	background-color: var(--white);
+
+	--base_margin : Min(2vw, 30px);
+}
+
+body > *:not(section){ margin: var(--base_margin); }
+
+h1 {
+	font-weight: bold;
+	font-size: 15vw;
+	text-transform: uppercase;
+}
+
+h2 { font-size: 7.5vw; text-transform: uppercase; }
+
+p { font-size: Max(2.3vw, 16px); }
+
+
+/* SECTION SPECIFIC */
+
+
+.full-height-element { 
+	min-height: 96vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* section[aria-label="About Senior Show 2026"]{
+	color: #470303;
+} */
+
+.full-height-element { 
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section[aria-label="About Senior Show 2026"] {
+    position: relative;
+}
+
+section[aria-label="About Senior Show 2026"] h2 {
+    margin-right: auto;
+    margin-left: 50px;
+
+    writing-mode: vertical-rl; 
+    transform: rotate(180deg); 
+}
+
+section[aria-label="About Senior Show 2026"]::after{
+    content: 'HORIZONTAL SCROLL';
+    color: var(--white);
+    position: absolute;
+    font-size: 40px;
+    bottom: -40px;
+    z-index: 10;
+}
+
+.scroll-track {
+    position: relative;
+    margin: 0;
+}
+
+section[aria-label="Class Projects"] {
+    background-color: var(--black);
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    justify-content: flex-start !important;
+    align-items: center;
+    margin: 0;
+}
+
+section[aria-label="Class Projects"] > * {
+    /* background-color: var(--white); */
+    display: block;
+    width: 200px;
+    aspect-ratio: 2 / 5;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    margin-left: -75px;
+}
+
+section[aria-label="Class Projects"] > *:nth-of-type(2n) img,
+section[aria-label="Class Projects"] > *:nth-of-type(2n)::after {
+    bottom: 0;
+    top: auto;
+}
+
+section[aria-label="Class Projects"] > *:first-child {
+    margin-left: calc(var(--base_margin) * 5);
+}
+
+section[aria-label="Class Projects"] > *:last-child {
+    margin-right: calc(var(--base_margin) * 5);
+}
+
+section[aria-label="Class Projects"] > * img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    cursor: pointer;
+}
+
+section[aria-label="Class Projects"] > *::after { 
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    z-index: 10;
+    
+    background-image: url('../images/flower.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain; 
+    
+    pointer-events: none;
+}
+
+footer {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+/* OTHER SCREEN SIZES */
+
+
+@media only screen and (max-width: 767px) { 
+
+	.scroll-track {
+        height: auto;
+        margin: var(--base_margin);
+    }
+
+    section[aria-label="Class Projects"] {
+        position: static;
+        height: auto;
+        flex-wrap: wrap;
+        display: block;
+    }
+
+    section[aria-label="Class Projects"] > * {
+        width: calc(100% - 20px);
+        aspect-ratio: 3 / 1;
+        margin: 20px 10px;
+    }
+
+    section[aria-label="Class Projects"] > *:first-child {
+        margin-left: 10px;
+    }
+
+    section[aria-label="Class Projects"] > *:last-child {
+        margin-right: 10px;
+    }
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) { }
+
+@media only screen and (min-width: 992px) { }

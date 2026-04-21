@@ -1,0 +1,507 @@
+
+
+/* Globals */
+
+
+:root {
+    --green     : oklch(81.82% 0.165 112.55);
+    --pink      : oklch(61.85% 0.231 3.23);
+    --orange    : oklch(67.75% 0.198 44.8);
+    --black     : oklch(20.35% 0.003 333.32);
+    --white     : oklch(100% 0 0);
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    color: var(--black);
+    background-color: var(--white);
+    --base_margin: Min(2vw, 30px);
+    overflow-x: hidden;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 15vw;
+    text-transform: uppercase;
+}
+
+h2 { font-size: Min(7.5vw, 50px); text-transform: uppercase; }
+h3 { font-size: 25px; }
+p { font-size: Clamp(16px, 2.3vw, 18px); line-height: 1.4; }
+
+.grid-12 {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+    width: calc(100% - (var(--base_margin) * 2));
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.col-6 { 
+    grid-column: span 6; 
+    min-height: 275px;
+}
+
+.full-height-element { 
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Section Control */
+
+
+header {
+    background-color: var(--pink);
+    color: var(--white);
+}
+
+section[aria-label="About Senior Show 2026"] {
+    position: relative;
+}
+
+.scroll-track {
+    position: relative;
+    margin: 0;
+}
+
+footer {
+    padding: Min(2vw, 30px);
+    padding-bottom: 50px;
+    padding-top: 100px;
+    box-sizing: border-box;
+    width: 100%;
+    text-wrap: balance;
+    border-top: var(--green) 4px solid;
+}
+
+footer .col-6 h2 { margin-bottom: 10px; }
+footer .col-6 p { margin-bottom: 20px; }
+
+
+/* Modal Overlay */
+
+
+#modal-overlay {
+    position: fixed; 
+    inset: 0; 
+    z-index: 10000; 
+    background-color: #000;
+    display: none; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+}
+
+#modal-overlay h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.close-modal {
+    background: #fff;
+    color: #000;
+    padding: 10px 25px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+/* Projects Section */
+
+
+section[aria-label="Class Projects"] {
+    background-color: var(--white);
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0;
+    z-index: 5;
+}
+
+section[aria-label="Class Projects"] > * {
+    display: block;
+    width: 200px; 
+    height: 70%;
+    flex-shrink: 0;
+    overflow: visible;
+    position: relative;
+    margin: 0 40px; 
+}
+
+section[aria-label="Class Projects"] > *:first-child { margin-left: calc(var(--base_margin) * 5); }
+section[aria-label="Class Projects"] > *:last-child { margin-right: calc(var(--base_margin) * 5); }
+
+section[aria-label="Class Projects"] > * img,
+section[aria-label="Class Projects"] > *::after {
+    width: 100%;
+    aspect-ratio: 1;
+    position: absolute;
+    transform: translateY(-50%);
+}
+
+section[aria-label="Class Projects"] > * img {
+    object-fit: cover;
+    object-position: center -15px; 
+    z-index: 11;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+section[aria-label="Class Projects"] > *::after { 
+    content: '';
+    z-index: 10;
+    -webkit-mask: url('../images/flower.svg') no-repeat center / contain;
+    mask: url('../images/flower.svg') no-repeat center / contain;
+    background-color: var(--white);
+    pointer-events: none;
+    transition: background-color 0.25s ease;
+}
+
+section[aria-label="Class Projects"] > * .member-name {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    z-index: 20;
+    font-weight: bold;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 1s ease;
+    color: var(--color);
+}
+
+
+/* Hover States */
+
+
+section[aria-label="Class Projects"] > * img:hover ~ .member-name { opacity: 1; }
+section[aria-label="Class Projects"] > *:has(img:hover)::after { background-color: var(--color); }
+
+
+/* Search Bar */
+
+
+.search-bar {
+    background-color: var(--orange);
+    position: relative;
+    border-radius: 5px;
+    width: 250px;
+    overflow: hidden;
+}
+
+input.search-input {
+    height: 40px;
+    width: 100%;
+    outline: none;
+    border: 3px solid var(--orange);
+    box-sizing: border-box;
+}
+
+.search-bar .search-guess {
+    background-color: var(--orange);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    text-decoration: none;
+    height: 0px;
+    opacity: 0;
+    transition: height 500ms ease, opacity 300ms ease;
+}
+
+.search-bar .search-guess.active {
+    height: 40px;
+    opacity: 1;
+}
+
+
+/* Committee Slider */
+
+
+#committee-list {
+    display: flex;
+    flex-direction: column;
+    grid-column: span 12; 
+    height: auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    width: 100%;
+}
+
+.committee-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.nav-buttons { display: flex; gap: 10px; }
+
+#committee-list #slider {
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#committee-list #slider::-webkit-scrollbar { display: none; }
+
+[id^="commi-"] { 
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    width: max-content;
+    padding-bottom: 60px;
+    margin-right: 40px;
+}
+
+[id^="commi-"]:last-of-type { margin-right: 0px; }
+
+[id^="commi-"] button {
+    background-color: var(--pink);
+    color: var(--white);
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+    width: 400px;
+    height: 200px;
+    outline: none;
+    border: none;
+    flex-shrink: 0;
+    overflow: hidden; 
+    padding: 0;
+    text-align: left;
+    position: relative;
+    cursor: pointer;
+    border-radius: 5px;
+    border-top-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    outline: 0px solid var(--white);
+    outline-offset: 0px;
+    transition: outline 300ms, outline-offset 300ms;
+}
+
+[id^="commi-"] button:hover {
+    outline: 4px solid var(--white);
+    outline-offset: -10px;
+    transition: outline 300ms, outline-offset 300ms;
+}
+
+[id^="commi-"] button img {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+}
+
+[id^="commi-"] button h3 {
+    position: static;
+    padding-left: 20px;
+    width: 50%;
+    margin: 0;
+    white-space: normal; 
+}
+
+[id^="commi-"] h3:not(button h3) {
+    position: absolute;
+    font-size: 20px;
+    bottom: 10px;
+    left: 0;
+    margin: 0;
+    color: var(--pink);
+}
+
+.member-info {
+    width: 50%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    white-space: normal; 
+}
+
+.member-info h3 {
+    margin: 0;
+    line-height: 1.1;
+    font-size: 24px;
+    max-width: 150px; 
+    display: block;
+}
+
+.buttonlink {
+    margin-top: 10px; 
+    background-color: var(--black);
+    color: var(--white);
+    padding: 5px 25px;
+    border-radius: 3px;
+    font-size: 12px;
+    width: fit-content;
+    text-transform: uppercase;
+}
+
+/* Vertical Positioning Logic (Desktop) */
+
+
+section[aria-label="Class Projects"] > *:nth-of-type(7n+1) img,
+section[aria-label="Class Projects"] > *:nth-of-type(7n+1)::after { top: 15%; }
+section[aria-label="Class Projects"] > *:nth-of-type(7n+1) .member-name { top: calc(15% + 115px); }
+
+section[aria-label="Class Projects"] > *:nth-of-type(7n+2) img,
+section[aria-label="Class Projects"] > *:nth-of-type(7n+2)::after { top: 80%; }
+section[aria-label="Class Projects"] > *:nth-of-type(7n+2) .member-name { top: calc(80% - 145px); }
+
+section[aria-label="Class Projects"] > *:nth-of-type(7n+3) img,
+section[aria-label="Class Projects"] > *:nth-of-type(7n+3)::after { top: 35%; }
+section[aria-label="Class Projects"] > *:nth-of-type(7n+3) .member-name { top: calc(35% + 115px); }
+
+section[aria-label="Class Projects"] > *:nth-of-type(7n+4) img,
+section[aria-label="Class Projects"] > *:nth-of-type(7n+4)::after { top: 60%; }
+section[aria-label="Class Projects"] > *:nth-of-type(7n+4) .member-name { top: calc(60% + 115px); }
+
+section[aria-label="Class Projects"] > *:nth-of-type(7n+5) img,
+section[aria-label="Class Projects"] > *:nth-of-type(7n+5)::after { top: 10%; }
+section[aria-label="Class Projects"] > *:nth-of-type(7n+5) .member-name { top: calc(10% + 115px); }
+
+section[aria-label="Class Projects"] > *:nth-of-type(7n+6) img,
+section[aria-label="Class Projects"] > *:nth-of-type(7n+6)::after { top: 50%; }
+section[aria-label="Class Projects"] > *:nth-of-type(7n+6) .member-name { top: calc(50% + 115px); }
+
+section[aria-label="Class Projects"] > *:nth-of-type(7n+7) img,
+section[aria-label="Class Projects"] > *:nth-of-type(7n+7)::after { top: 85%; }
+section[aria-label="Class Projects"] > *:nth-of-type(7n+7) .member-name { top: calc(85% - 145px); }
+
+
+/* Responsive Styles */
+
+
+@media only screen and (max-width: 767px) { 
+    footer { padding-bottom: 150px; }
+
+    .committee-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .nav-buttons {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .col-6 { 
+        grid-column: span 12; 
+        min-height: 200px;
+    }
+
+    .col-6:not(:first-of-type) { min-height: 50px; }
+
+    section[aria-label="Class Projects"] {
+        position: static;
+        height: auto;
+        display: block;
+    }
+
+    section[aria-label="Class Projects"] > * {
+        width: 100%;
+        height: 380px;
+        margin: 20px 0;
+    }
+
+    section[aria-label="Class Projects"] > * img,
+    section[aria-label="Class Projects"] > *::after {
+        width: 250px;
+        height: 250px;
+        top: 0 !important;
+        transform: none !important;
+        left: auto;
+        right: auto;
+    }
+
+    section[aria-label="Class Projects"] > *::after {
+        -webkit-mask: url('../images/flower.svg') no-repeat center / contain;
+        mask: url('../images/flower.svg') no-repeat center / contain;
+        background-color: var(--color);
+    }
+
+    section[aria-label="Class Projects"] > * .member-name {
+        opacity: 1;
+        top: 268px !important;
+        width: 250px;
+        color: var(--color);
+    }
+
+
+    /* Mobile Positioning Grids */
+
+
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+1) img, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+1)::after, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+1) .member-name { left: 50%; transform: translateX(-50%) !important; }
+    
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+2) img, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+2)::after, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+2) .member-name { left: 10px; }
+    
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+3) img, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+3)::after, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+3) .member-name { right: 10px; }
+    
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+4) img, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+4)::after, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+4) .member-name { left: 50%; transform: translateX(-50%) !important; }
+    
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+5) img, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+5)::after, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+5) .member-name { right: 30px; }
+    
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+6) img, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+6)::after, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+6) .member-name { left: 40px; }
+    
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+7) img, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+7)::after, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+7) .member-name { left: 50%; transform: translateX(-50%) !important; }
+    
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+8) img, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+8)::after, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+8) .member-name { left: 20px; }
+    
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+9) img, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+9)::after, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+9) .member-name { right: 5px; }
+    
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+10) img, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+10)::after, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+10) .member-name { left: 50%; transform: translateX(-50%) !important; }
+    
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+11) img, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+11)::after, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+11) .member-name { right: 40px; }
+    
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+12) img, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+12)::after, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+12) .member-name { left: 5px; }
+    
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+13) img, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+13)::after, 
+    section[aria-label="Class Projects"] > *:nth-of-type(13n+13) .member-name { left: 50%; transform: translateX(-50%) !important; }
+}

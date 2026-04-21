@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width"/>
+
+        <title> Senior Show | Graphic Design | Spring 2026 </title>
+        
+        <link rel="icon" type="image/x-icon" href="./images/flower.svg">
+        <link href="css/reset.css" rel="stylesheet" type="text/css"/>
+        <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+  
+        <!-- VERTICAL SCROLL -->
+
+        <header class="full-height-element">
+            <h1> NON LINEAR </h1>
+        </header>
+
+        <section aria-label="About Senior Show 2026" class="full-height-element">
+            <h2> About </h2>
+        </section>
+        
+        <!-- HORIZONTAL SCROLL -->
+
+        <div class="scroll-track">
+            <section aria-label="Class Projects" id="projects-container">
+                <!-- Projects injected with Javascript -->
+            </section>
+        </div>
+
+        <!-- VERTICAL SCROLL -->
+
+        <footer class="grid-12">
+
+            <div class="col-6">
+                <h2> Find A Project </h2>
+                <p> Type a name or keyword to jump to a specific designer. </p>
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Search names or projects...">
+                    <a class="search-guess" href="#"> Guess </a>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <h2> Thank You </h2>
+                <p> We appreciate you for looking through our projects and coming to the show. Check out our portfolios below! </p>
+            </div>
+
+            <div id="committee-list">
+                <div class="committee-header">
+                    <h2> Seniors </h2>
+                    <div class="nav-buttons">
+                        <button id="prevBtn"> Previous </button>
+                        <button id="nextBtn"> Next </button>
+                    </div>
+                </div>
+                <div id="slider">
+                    <!-- Members injected with Javascript -->
+                </div>
+            </div>
+
+        </footer>
+
+        <!-- MODAL -->
+
+        <div id="modal-overlay">
+            <div class="modal-content">
+                <h2 id="modal-name-display">Name Goes Here</h2>
+                <button class="close-modal" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="js/script.js" defer></script>
+    </body>
+</html>
